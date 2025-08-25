@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.emp.employ.employee.EmployeeMapper">
+	
+	<!-- 로그인 -->
+	<select id="login" resultType="com.emp.employ.employee.EmployeeDTO">
+		SELECT
+			E.employee_id,
+			E.password,
+			E.department_id,
+			E.worktype_id,
+			W.worktype,
+			E.position_id,
+			P.position_name,
+			E.name,
+			E.gender,
+			E.birthdate,
+			E.phone_num,
+			E.email,
+			E.address,
+			TO_CHAR(E.employment_date, 'YYYY"년" MM"월" DD"일"') AS employment_date,
+			D.department_name,
+			NVL(D.manager_name, '미지정') AS manager_name
+		FROM
+			employees E, departments D, worktypes W, positions P
+		WHERE
+			E.department_id = D.department_id AND
+         	E.worktype_id = W.worktype_id AND
+         	E.position_id = P.position_id AND
+         	E.employee_id = #{employee_id} AND
+         	E.password = #{password}
+	</select>
+
+	<!-- 부서 담당자인지 확인 -->
+	<select id="managerEquals" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			employees E, departments D
+		WHERE
+			E.department_id = D.department_id AND
+			E.employee_id = D.manager_id AND
+			E.employee_id = #{employee_id} AND
+			E.password = #{password}
+	</select>
+	
+	<!-- 직원 정보 업데이트 -->
+	<update id="empUpdate">
+		UPDATE
+			employees
+		SET
+			address = #{address},
+			email = #{email},
+			password = #{password}
+		WHERE
+			employee_id = #{employee_id}
+	</update>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+

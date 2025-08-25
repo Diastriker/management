@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.emp.employ.atted.AttedMapper">
+	
+	<!-- 출석 체크 -->
+	<insert id="atteStart">
+		INSERT INTO attendance_record
+			(currentDate, employee_id, atte_start, atte_flag)
+		VALUES
+			(#{currentDate} ,#{employee_id}, #{atte_start}, #{atte_flag})
+	</insert>
+	
+	<!-- 퇴근 체크하기 전에 출석 체크 했는지 확인 -->
+	<select id="atteEndContains" resultType="com.emp.employ.atted.AttedDTO">
+		SELECT
+			TO_CHAR(atte_start, 'HH24:MI') AS atte_start
+		FROM
+			attendance_record
+		WHERE
+			employee_id = #{employee_id} AND
+			TO_CHAR(currentDate, 'yyyy-mm-dd') = TO_CHAR(#{currentDate}, 'yyyy-mm-dd')
+	</select>
+	
+	<!-- 퇴근체크 실행 -->
+	<update id="atteEndUpdate">
+		UPDATE
+			attendance_record
+		SET
+			atte_end = #{atte_end},
+			work_time = #{work_time}
+		WHERE
+			employee_id = #{employee_id} AND
+			TO_CHAR(currentDate, 'yyyy-mm-dd') = TO_CHAR(#{currentDate}, 'yyyy-mm-dd')
+	</update>
+	
+</mapper>

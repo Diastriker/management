@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.emp.address.AddressMapper">
+	<select id="getAddressList" resultType="com.emp.address.AddressDTO">
+		SELECT
+			address_id , province || ' ' || search AS search
+		FROM
+			address
+		WHERE
+			contains (search, #{keyword}) > 0
+		ORDER BY
+			search ASC
+		OFFSET 0 ROWS FETCH NEXT 501 ROWS ONLY
+	</select>
+</mapper>

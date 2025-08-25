@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.emp.employ.leave.LeaveMapper">
+
+<insert id="insertLeave">
+	INSERT INTO leave_history(
+		seq,
+		employee_id,
+		reg_date,
+		annual_days,
+		leave_start_date,
+		leave_end_date,
+		content,
+		status
+	)
+	VALUES(
+		S_LEAVE_HIS.NEXTVAL,
+		#{employee_id},
+		#{reg_date},
+		#{annual_days},
+		#{leave_start_date},
+		#{leave_end_date},
+		#{content},
+		0
+	)
+</insert>
+
+<select id="getLeaveReqList" resultType="com.emp.employ.leave.LeaveReqDTO">
+	SELECT lh.seq, lh.req_date, e.name            
+	FROM leave_history lh join employees e 
+	ON lh.employee_id = e.employee_id
+	WHERE status = 0
+	ORDER BY e.name DESC
+</select>
+
+<select id="getLeaveHistoryList" resultType="com.emp.employ.leave.LeaveReqDTO">
+	SELECT seq, employee_id, reg_date, annual_days
+	FROM   leave_history  
+	WHERE	 employee_id = #{employee_id}
+	ORDER BY seq DESC
+</select>
+
+<select id="leaveDetail" resultType="com.emp.employ.leave.LeaveReqDTO">
+	SELECT 
+		e.name,
+		e.phone_num,
+		d.department_name,
+		d.manager_name,
+		lh.seq,
+		lh.req_date,
+		lh.annual_days,
+		lh.leave_start_date,
+		lh.leave_end_date,
+		lh.content
+	FROM leave_history lh 
+	JOIN employees e   ON lh.employee_id = e.employee_id
+	JOIN departments d ON e.department_id = d.department_id
+	WHERE seq = #{seq}
+</select>
+
+<delete id="deleteLeave">
+	DELETE FROM leave_history
+	WHERE seq = #{seq}
+</delete>
+
+</mapper>
+
+
+
+
+

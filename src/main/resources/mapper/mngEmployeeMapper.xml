@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- com.emp.employ.employee.EmployeeDTO -->
+<mapper namespace="com.emp.manager.employee.MmgEmployeeMapper">
+	
+	<!-- 직원 등록 : employeeInsert -->
+	<insert id="employeeInsert">
+		INSERT INTO employees
+			(employee_id,
+			 password,
+			 department_id,
+			 worktype_id,
+			 position_id,
+			 name,
+			 gender,
+			 birthdate,
+			 <if test="phone_num != null">
+			 	phone_num ,
+			 </if>
+			 <if test="email != null">
+			 	email ,
+			 </if>
+			 address,
+			 employment_date)
+		VALUES
+			(#{employee_id},
+			#{password},
+			#{department_id},
+			#{worktype_id},
+			#{position_id},
+			#{name},
+			#{gender},
+			#{birthdate},
+			<if test="phone_num != null">
+				#{phone_num} ,
+			</if>
+			<if test="email != null">
+				#{email} ,
+			</if>
+			(SELECT province || ' ' || search AS address FROM address WHERE address_id = #{address_id}),
+			#{employment_date}
+			)
+	</insert>
+	
+	<!-- 등록된 직원인지 검증 -->
+	<select id="employeeEquals" resultType="int">
+		SELECT
+			COUNT(*) AS CNT
+		FROM
+			EMPLOYEES
+		WHERE
+			name = #{name} AND
+			employment_date = #{employment_date} AND
+			phone_num = #{phone_num}
+	</select>
+	
+</mapper>

@@ -1,0 +1,147 @@
+@charset "UTF-8";
+main {
+	width: 100%;
+	height: 95%;
+	
+	background-color: #F5F5F5;
+	padding: 10px;
+	
+	display: flex;
+	flex-direction: column;
+}
+
+.mng_top_box {
+	width: 90%;
+	min-width: 1450px;
+	height: 250px;
+	
+	margin: 0 auto;
+	margin-top: 60px;
+	
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	
+	align-items: center;
+	
+	padding: 10px;
+}
+
+.mng_top_item {
+	width: 15%;
+	height: 80%;
+	padding: 5px;
+	
+	background-color: #2C3E50;
+	border: none;
+	border-radius: 15px;
+	
+	box-shadow:
+		0 0 3px #2C3E50,
+		0 0 6px #2C3E50;
+		
+	display: flex;
+	flex-direction: column;
+	
+	text-align: center;
+	font-size: 25px;
+	font-weight: 600;
+	
+	color: white;
+	white-space: nowrap;
+	
+	p {
+		margin: 0 auto;
+		margin-bottom: 20px;
+	}
+	
+	p:last-child {
+		font-size: 30px;
+		text-shadow:
+			0 0 1px #000,
+			0 0 3px #FFF;
+	}
+}
+
+/* 관리자 메인 페이지 본문 부분 */
+.mng_bottom_box {
+	width: 90%;
+	min-width: 1450px;
+	height: 85%;
+	
+	margin: 0 auto;
+	margin-top: 30px;
+	
+	background-color: #2C3E50;
+	border: none;
+	border-radius: 20px;
+	
+	box-shadow:
+		0 0 3px #2C3E50,
+		0 0 6px #2C3E50;
+		
+	padding: 10px;
+	
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.mng_bottom_item {
+	width: 25%;
+	height: 90%;
+	
+	display: flex;
+	flex-direction: column;
+	padding: 10px;
+}
+
+.mng_bottom_menu {
+	width: 90%;
+	max-width: 400px;
+	height: 50px;
+	
+	background-color: white;
+	
+	margin: 0 auto;
+	margin-bottom: 15px;
+	
+	display: flex;
+	flex-direction: row;
+	
+	align-items: center;
+	border-radius: 20px;
+	
+	label {
+		line-height: 90%;
+		
+		padding: 0;
+		padding-left: 10px;
+		
+		margin: 0;
+	}
+	
+	label:first-child {
+		width: 120px;
+		font-size: 20px;
+		font-weight: 600;
+		
+		text-align: center;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
