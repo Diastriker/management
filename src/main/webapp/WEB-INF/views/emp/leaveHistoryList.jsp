@@ -14,9 +14,9 @@
 				<td>휴가 신청일</td>
 				<td>휴가 일수</td>
 			</tr>
-			<c:forEach var="HistoryList" items="leaveHistoryList">
+			<c:forEach var="HistoryList" items="${leaveHistoryList}">
 			<tr>
-				<td>${HistoryList.reg_date}</td>
+				<td><a href="/leave/leaveReqHistory?seq=${HistoryList.seq}">${HistoryList.reg_date}</a></td>
 				<td>${HistoryList.annual_days}</td>
 			</tr>
 			</c:forEach>

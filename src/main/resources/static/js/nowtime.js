@@ -14,6 +14,7 @@ function updateClock() {
 	const seconds = String(now.getSeconds()).padStart(2, '0');
 	
 	// atte_start에 값 넣기
+	/*
 	const atte_startEl = document.querySelector('[name=atte_start]');
 		  atte_startEl.value = `${hours}:${minutes}`;
 		  
@@ -24,6 +25,7 @@ function updateClock() {
 	currentDateEl.forEach( e => {
 		e.value = `${year}-${month}-${day}`;
 	});
+	*/
 	
 	const week = ["일", "월", "화", "수", "목", "금", "토"];
 	const weekDay = week[now.getDay()]; // 0~6 → 요일 변환

@@ -11,7 +11,7 @@
 		</a>
 	</div>
 	<div class="emp_header_item">
-		<a href="">
+		<a href="/leave/leaveView?employee_id=${employee.employee_id}">
 			<label class="item-label">휴가 신청</label>
 		</a>
 	</div>

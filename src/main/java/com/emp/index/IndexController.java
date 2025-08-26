@@ -18,8 +18,14 @@ public class IndexController {
 	private EmployeeMapper empMapper;
 	
 	@GetMapping("/")
-	public ModelAndView indexView() {
+	public ModelAndView indexView(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
+		
+		EmployeeDTO employee = (EmployeeDTO) session.getAttribute("employee");
+		if(employee != null) {
+			mav.setViewName("redirect:/emp/empView");
+			return mav;
+		}
 		
 		mav.setViewName("index/login");
 		return mav;

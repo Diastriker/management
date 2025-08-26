@@ -80,7 +80,6 @@
 		</div>
 		<div class="emp_info_menu">
 			자신의 휴가신청건 목록
-			<a href="/leave/leaveView?employee_id=${employee.employee_id}">휴가신청하기</a>
 			<a href="/leave/leaveReqHistoryList?employee_id=${employee.employee_id}">휴가신청 기록보기</a>
 		</div>
 		<div class="emp_info_menu">

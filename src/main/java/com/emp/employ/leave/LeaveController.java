@@ -22,7 +22,7 @@ public class LeaveController {
 	
 	/* 
 	 * 백승목
-	 * 휴가 / 휴가 신청 View 보여주기
+	 * 직원 : 휴가 / 휴가 신청 View 보여주기
 	 * 메서드 이름 : leaveView 
 	 */
 	// 신청버튼 누를때 hidden 으로 employee_id 를 넘겨줘야함
@@ -39,7 +39,7 @@ public class LeaveController {
 	
 	/*
 	 * 백승목
-	 * 휴가 신청 로직(insertLeave) 및 연가신청 기록으로 추가(insertLeaveHistory)
+	 * 직원 : 휴가 신청 로직(insertLeave) 및 연가신청 기록으로 추가(insertLeaveHistory)
 	 * 메서드 이름 : leaveCreate
 	 */
 	@RequestMapping("/leaveReqFinish")
@@ -56,13 +56,13 @@ public class LeaveController {
 	
 	/*
 	 * 백승목
-	 * 본인 휴가 신청기록 리스트 페이지
+	 * 직원 : 본인 휴가 신청기록 리스트 페이지
 	 */	
 	@RequestMapping("/leaveReqHistoryList") //employee_id - hidden 으로 employee_id 를 넘겨줘야함 혹 session
 	public ModelAndView leaveReqHistoryList(LeaveReqDTO leaveReqDTO) {
 		ModelAndView mav = new ModelAndView();
 		
-		// 직원이 신청한 휴가기록들 갖고오기 seq, employee_id, leave_date, status
+		// 본인이 신청한 휴가기록들 갖고오기 leaveHistoryList = seq, employee_id, leave_date, status
 		List<LeaveReqDTO> leaveHistoryList = leaveMapper.getLeaveHistoryList(leaveReqDTO);
 		System.out.println("본인 휴가신청 리스트" + leaveHistoryList);
 		
@@ -73,29 +73,32 @@ public class LeaveController {
 	
 	/*
 	 * 백승목
-	 * 본인 해당 휴가신청서 상세정보 
+	 * 직원 : 본인 해당 휴가신청서 상세정보 페이지 이동
 	 */ 
-	@RequestMapping("/leaveReqHistory")  // seq
+	@RequestMapping("/leaveReqHistory")         // seq
 	public ModelAndView leaveHistory(LeaveReqDTO leaveReqDTO) {
 		ModelAndView mav = new ModelAndView();
 		
-		// 신청서 작성한거 상세정보 가져오기
+		// 신청서 작성한거 상세정보 가져오기 leaveReqDTO = *
 		leaveReqDTO = leaveMapper.leaveDetail(leaveReqDTO);
 		
 		mav.addObject("leaveReqDTO",leaveReqDTO);
-		mav.setViewName("emp/");
+		mav.setViewName("emp/empLeaveUpdate");
 		return mav;
 	}
 	
 	/*
 	 * 백승목
-	 * 휴가 신청 내역 수정
+	 * 직원 : 휴가 신청 내역 수정
 	 * 메서드 이름 : leaveUpdate
 	 */
 	// 직원이 수정
-	@RequestMapping("/leaveUpdate")
+	@RequestMapping("/leaveUpdate")              // *
 	public ModelAndView leaveUpdate(LeaveReqDTO leaveReqDTO) {
 		ModelAndView mav = new ModelAndView();
+		
+		System.out.println("휴가 수정값 : " + leaveReqDTO);
+		leaveMapper.empLeaveUpdate(leaveReqDTO);
 		
 		mav.setViewName("redirect:/");
 		return mav;
@@ -122,6 +125,7 @@ public class LeaveController {
 		ModelAndView mav = new ModelAndView();
 		
 		leaveReqDTO = leaveMapper.leaveDetail(leaveReqDTO);
+		System.out.println("직원의 휴가 상세정보 : " + leaveReqDTO);
 		/*
 		EmployeeDTO employee = (EmployeeDTO) session.getAttribute("employee");
 		
@@ -134,6 +138,14 @@ public class LeaveController {
 		*/
 		mav.addObject("leaveDetail", leaveReqDTO);
 		mav.setViewName("manager/leaveRead");
+		return mav;
+	}
+	
+	@RequestMapping("/leaveAgree")
+	public ModelAndView agree() {
+		ModelAndView mav = new ModelAndView();
+		
+		mav.setViewName("redirect:/");
 		return mav;
 	}
 	

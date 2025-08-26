@@ -23,13 +23,15 @@
 				<td colspan="2"><h2>휴가 신청한 직원리스트</h2></td>
 			</tr>
 			<tr>
+				<td>신청서 해당번호</td>
 				<td>직원 이름</td>
 				<td>신청일</td>
 			</tr>
-			<c:forEach var="List" items="leaveReqList">
+			<c:forEach var="List" items="${leaveReqList}">
 				<tr>
+					<td><a href="/leave/showLeaveDetail?seq=${List.seq}">${List.seq}</a></td>
 					<td><a href="/leave/showLeaveDetail?seq=${List.seq}">${List.name}</a></td>
-					<td><a href="/leave/showLeaveDetail?seq=${List.seq}">${List.req_date}</a></td>
+					<td><a href="/leave/showLeaveDetail?seq=${List.seq}">${List.reg_date}</a></td>
 				</tr>
 			</c:forEach>
 		</table>

@@ -27,15 +27,15 @@
 </insert>
 
 <select id="getLeaveReqList" resultType="com.emp.employ.leave.LeaveReqDTO">
-	SELECT lh.seq, lh.req_date, e.name            
-	FROM leave_history lh join employees e 
+	SELECT lh.seq, lh.reg_date, e.name            
+	FROM leave_history lh JOIN employees e 
 	ON lh.employee_id = e.employee_id
-	WHERE status = 0
-	ORDER BY e.name DESC
+	WHERE lh.status = 0
+	ORDER BY lh.seq DESC
 </select>
 
 <select id="getLeaveHistoryList" resultType="com.emp.employ.leave.LeaveReqDTO">
-	SELECT seq, employee_id, reg_date, annual_days
+	SELECT seq, employee_id, TO_CHAR(reg_date,'YYYY-MM-DD') AS reg_date, annual_days
 	FROM   leave_history  
 	WHERE	 employee_id = #{employee_id}
 	ORDER BY seq DESC
@@ -44,25 +44,37 @@
 <select id="leaveDetail" resultType="com.emp.employ.leave.LeaveReqDTO">
 	SELECT 
 		e.name,
+		e.employee_id,
 		e.phone_num,
 		d.department_name,
 		d.manager_name,
 		lh.seq,
-		lh.req_date,
+		TO_CHAR(lh.reg_date,'YYYY-MM-DD') AS reg_date,
 		lh.annual_days,
-		lh.leave_start_date,
-		lh.leave_end_date,
+		TO_CHAR(lh.leave_start_date,'YYYY-MM-DD') AS leave_start_date,
+		TO_CHAR(lh.leave_end_date,'YYYY-MM-DD') AS leave_end_date,
 		lh.content
 	FROM leave_history lh 
 	JOIN employees e   ON lh.employee_id = e.employee_id
 	JOIN departments d ON e.department_id = d.department_id
-	WHERE seq = #{seq}
+	WHERE lh.seq = #{seq}
 </select>
 
 <delete id="deleteLeave">
 	DELETE FROM leave_history
 	WHERE seq = #{seq}
 </delete>
+
+<update id="empLeaveUpdate">
+	UPDATE leave_history
+	SET 
+		reg_date = #{reg_date},
+		leave_start_date = #{leave_start_date},
+		leave_end_date = #{leave_end_date},
+		annual_days = #{annual_days},
+		content = #{content}
+	WHERE seq = #{seq}
+</update>
 
 </mapper>
 

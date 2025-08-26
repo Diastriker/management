@@ -42,25 +42,26 @@
 	<main>		
 	<form action="/leave/leaveUpdate" method="GET">
 		<input type ="hidden" name="employee_id" value="${leaveReqDTO.employee_id}"/>
+		<input type ="hidden" name="seq" value="${leaveReqDTO.seq}"/>
 		<table>
 		  <tr>
 		    <td colspan="4" class="title"><h2>휴가 신청</h2></td>
 		  </tr>
 		  <tr>
 		    <td>성명</td>
-		    <td><input type="text" name="name">${leaveReqDTO.name}</td>
+		    <td><input type="text" name="name" value="${leaveReqDTO.name}"></td>
 		    <td>부서담당자</td>
-		    <td><input type="text" name="manager_name">${leaveReqDTO.manager_name}</td>
+		    <td><input type="text" name="manager_name" value="${leaveReqDTO.manager_name}"></td>
 		  </tr>
 		  <tr>
 		    <td>부서</td>
-		    <td><input type="text" name="department_name">${leaveReqDTO.department_name}</td>
+		    <td><input type="text" name="department_name" value="${leaveReqDTO.department_name}"></td>
 		    <td>전화번호</td>
-		    <td><input type="text" name="phone_num">${leaveReqDTO.phone_num}</td>
+		    <td><input type="text" name="phone_num" value="${leaveReqDTO.phone_num}"></td>
 		  </tr>
 		  <tr>
 		  	<td>신청일</td>
-		  	<td colspan="3"><input type="date" value="${leaveReqDTO.req_date}"/></td>
+		  	<td colspan="3"><input type="date" name="reg_date" value="${leaveReqDTO.reg_date}"/></td>
 		  </tr>
 		  <tr>
 		  <tr>
@@ -71,26 +72,24 @@
 		     <input type="date" name="leave_end_date" value="${leaveReqDTO.leave_end_date}">
 		    </td>		    
 		    <td>휴가일수</td>
-		    <td><input type="number" min="0" max="15" name="annual_days">${leaveReqDTO.annual_days}</td>
+		    <td><input type="number" min="0" max="15" name="annual_days" value="${leaveReqDTO.annual_days}"></td>
 		  </tr>
 		  <tr>
 		    <td>사유</td>
 		    <td colspan="3">
-		    <textarea style="width:100%; height:120px; resize:none;" name="content">
-		    ${leaveReqDTO.content}
-		    </textarea>
+		    <textarea style="width:100%; height:120px; resize:none;" name="content" >${leaveReqDTO.content}</textarea>
 		    </td>
 		  </tr>
 		  <tr>
 		    <td>신청자 (인)</td>
-		    <td colspan="3"><input type="text">${leaveReqDTO.name}</td>
+		    <td colspan="3"><input type="text" value="${leaveReqDTO.name}"></td>
 		  </tr>
 		  <tr>
 		    <td colspan="4" style="text-align:center;">주식회사 ○○○</td>
 		  </tr>
 		  <tr>
 		  	<td colspan="4">
-		  	<input type="submit" value="다시 재출하기" name="status" value="0"/>
+		  	<input type="submit" value="수정사항 제출하기"/>
 		  	</td>
 		  </tr>
 		</table>
