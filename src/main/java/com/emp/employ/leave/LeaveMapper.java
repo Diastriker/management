@@ -19,4 +19,8 @@ public interface LeaveMapper {
 	List<LeaveReqDTO> getLeaveHistoryList(LeaveReqDTO leaveReqDTO);
 
 	void empLeaveUpdate(LeaveReqDTO leaveReqDTO);
+
+	void leaveAgree(LeaveReqDTO leaveReqDTO);
+
+	void leaveRefuse(LeaveReqDTO leaveReqDTO);
 }

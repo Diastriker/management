@@ -30,7 +30,7 @@ public class ManagerEmployeeController {
 		
 		if(target == null) {
 			session.invalidate();
-			mav.setViewName("/");
+			mav.setViewName("manager/manager");
 			return mav;
 		}
 		

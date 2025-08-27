@@ -1,11 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>휴가 신청</title>
-
+<link rel="stylesheet" href="/css/reset.css">
+<link rel="stylesheet" href="/css/empHeader.css">
+<link rel="stylesheet" href="/css/empMain.css"> 
 <style>
 	
 	* {
@@ -18,6 +21,12 @@
     width : 800px;
 		height : 500px;
     margin: 20px auto;
+    background : white;
+		border : 3px solid black;
+    box-shadow: 0 0 3px #FFF;
+    margin-top : 80px;
+    height : 75%;
+    width : 65%;
   }
   
   h2 { text-align : center; }
@@ -39,24 +48,27 @@
 
 </head>
 <body>
-	<main>		
+
+	<%@ include file="empHeader.jsp" %>
+	
+	<main class="emp_dashboard">		
 	<form action="/leave/leaveReqFinish" method="GET">
 		<input type ="hidden" name="employee_id" value="${employee_id}"/>
 		<table>
 		  <tr>
-		    <td colspan="4" class="title"><h2>휴가 신청</h2></td>
+		    <td colspan="4" class="title"><h2>휴가 신청서</h2></td>
 		  </tr>
 		  <tr>
 		    <td>성명</td>
-		    <td><input type="text" name="name"></td>
+		    <td><input type="text" name="name" value="${employee.name}" readonly></td>
 		    <td>부서담당자</td>
-		    <td><input type="text" name="manager_name"></td>
+		    <td><input type="text" name="manager_name" value="${employee.manager_name}" readonly></td>
 		  </tr>
 		  <tr>
 		    <td>부서</td>
-		    <td><input type="text" name="department_name"></td>
+		    <td><input type="text" name="department_name" value="${employee.department_name}" readonly></td>
 		    <td>전화번호</td>
-		    <td><input type="text" name="phone_num"></td>
+		    <td><input type="text" name="phone_num" value="${employee.phone_num}" readonly></td>
 		  </tr>
 		  <tr>
 		  	<td>신청일</td>
@@ -70,7 +82,7 @@
 		  </tr>
 		  <tr>
 		    <td>사유</td>
-		    <td colspan="3"><textarea style="width:100%; height:120px; resize:none;" name="content"></textarea></td>
+		    <td colspan="3"><textarea style="width:100%; height:120px; resize:none; outline:none; " name="content"></textarea></td>
 		  </tr>
 		  <tr>
 		    <td>신청자 (인)</td>
@@ -81,12 +93,26 @@
 		  </tr>
 		  <tr>
 		  	<td colspan="4">
-		  	<input type="submit" value="신청"/>
+		  	<input id="emp_leave_req" type="submit" value="제출하기"/>
 		  	</td>
 		  </tr>
 		</table>
 	</form>
 		
 	</main>
+	
+	<script src="/js/nowtime.js"></script>
+	
+	<script>
+		El.forEach(AA => {
+			AA.addEventListener('click',function() {
+				
+			})
+		} )
+	</script>
+	
 </body>
 </html>
+
+
+

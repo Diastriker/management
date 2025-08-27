@@ -15,5 +15,6 @@ public class LeaveReqDTO {
 	private String content;
 	private String manager_name;		
 	private String department_name;		
-	private String phone_num;		
+	private String phone_num;
+	private int    status;
 }

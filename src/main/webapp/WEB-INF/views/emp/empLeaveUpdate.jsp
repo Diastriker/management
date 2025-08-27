@@ -40,9 +40,10 @@
 </head>
 <body>
 	<main>		
-	<form action="/leave/leaveUpdate" method="GET">
+	<form id="submit" action="/leave/leaveUpdate" method="GET">
 		<input type ="hidden" name="employee_id" value="${leaveReqDTO.employee_id}"/>
 		<input type ="hidden" name="seq" value="${leaveReqDTO.seq}"/>
+		<input id="status" type ="hidden" name="status" value="${leaveReqDTO.status}"/>
 		<table>
 		  <tr>
 		    <td colspan="4" class="title"><h2>휴가 신청</h2></td>
@@ -96,5 +97,23 @@
 	</form>
 		
 	</main>
+	
+	<script>
+		const statusEl = document.getElementById('status')
+		const submitEl = document.getElementById('submit')
+		const titleEL  = document.querySelector('.title')
+		
+		submitEl.addEventListener('submit', function(e) {	
+		if(statusEl.value == 0) {
+			alert('관리자가 확인 전까진 원본 수정이 불가능합니다')
+			titleEL.focus();
+			e.preventDefault();
+			e.stopPropagation();
+		}
+	})
+	</script>
+	
 </body>
 </html>
+
+

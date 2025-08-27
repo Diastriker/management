@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,9 +40,10 @@
 	<main>		
 	<form action="/leave/leaveAgree" method="GET">
 		<input type ="hidden" name="employee_id" value="${leaveDetail.employee_id}"/>
+		<input type ="hidden" name="seq" value="${leaveDetail.seq}"/>
 		<table>
 		  <tr>
-		    <td colspan="4" class="title"><h2>휴가 신청</h2></td>
+		    <td colspan="4" class="title"><h2>휴가 신청서</h2></td>
 		  </tr>
 		  <tr>
 		    <td>성명</td>
@@ -88,7 +90,7 @@
 		  <tr>
 		  	<td colspan="4">
 		  	<input type="submit" value="승인"/><br>
-		  	<a href="">반려</a><br>
+		  	<a href="/leave/leaveRefuse?seq=${leaveDetail.seq}">반려</a><br>
 		  	</td>
 		  </tr>
 		</table>

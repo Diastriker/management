@@ -35,7 +35,12 @@
 </select>
 
 <select id="getLeaveHistoryList" resultType="com.emp.employ.leave.LeaveReqDTO">
-	SELECT seq, employee_id, TO_CHAR(reg_date,'YYYY-MM-DD') AS reg_date, annual_days
+	SELECT 
+		seq, 
+		employee_id, 
+		TO_CHAR(reg_date,'YYYY-MM-DD') AS reg_date, 
+		annual_days,
+		status
 	FROM   leave_history  
 	WHERE	 employee_id = #{employee_id}
 	ORDER BY seq DESC
@@ -53,7 +58,8 @@
 		lh.annual_days,
 		TO_CHAR(lh.leave_start_date,'YYYY-MM-DD') AS leave_start_date,
 		TO_CHAR(lh.leave_end_date,'YYYY-MM-DD') AS leave_end_date,
-		lh.content
+		lh.content,
+		lh.status
 	FROM leave_history lh 
 	JOIN employees e   ON lh.employee_id = e.employee_id
 	JOIN departments d ON e.department_id = d.department_id
@@ -72,7 +78,22 @@
 		leave_start_date = #{leave_start_date},
 		leave_end_date = #{leave_end_date},
 		annual_days = #{annual_days},
-		content = #{content}
+		content = #{content},
+		status = 0
+	WHERE seq = #{seq}
+</update>
+
+<update id="leaveAgree">
+	UPDATE leave_history
+	SET 
+	 status = 1
+	WHERE seq = #{seq}
+</update>
+
+<update id="leaveRefuse">
+	UPDATE leave_history
+	SET 
+	 status = 2
 	WHERE seq = #{seq}
 </update>
 

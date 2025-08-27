@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.emp.employ.employee.EmployeeDTO;
+
+import jakarta.servlet.http.HttpSession;
+
 
 
 @Controller
@@ -27,13 +31,16 @@ public class LeaveController {
 	 */
 	// 신청버튼 누를때 hidden 으로 employee_id 를 넘겨줘야함
 	@RequestMapping("/leaveView")
-	public ModelAndView leaveView(String employee_id) {
+	public ModelAndView leaveView(String employee_id, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
+		
+		EmployeeDTO target = (EmployeeDTO) session.getAttribute("employee");
 		
 		System.out.println(employee_id);
 		
 		mav.addObject("employee_id",employee_id);
-		mav.setViewName("emp/leavereq");
+		mav.addObject("employee",target);
+		mav.setViewName("emp/leaveReq");
 		return mav;
 	}
 	
@@ -141,14 +148,31 @@ public class LeaveController {
 		return mav;
 	}
 	
-	@RequestMapping("/leaveAgree")
-	public ModelAndView agree() {
+	/*
+	 * 백승목
+	 * 관리자 : 휴가 승인
+	 */
+	@RequestMapping("/leaveAgree") // 필요한값 seq, 넘어온값 : *
+	public ModelAndView agree(LeaveReqDTO leaveReqDTO) {
 		ModelAndView mav = new ModelAndView();
 		
-		mav.setViewName("redirect:/");
+		leaveMapper.leaveAgree(leaveReqDTO);
+		mav.setViewName("redirect:/manage/mngindex");
 		return mav;
 	}
 	
+	/*
+	 * 백승목
+	 * 관리자 : 휴가 반려
+	 */
+	@RequestMapping("/leaveRefuse") // 필요한값 seq, 넘어온값 : *
+	public ModelAndView Refuse(LeaveReqDTO leaveReqDTO) {
+		ModelAndView mav = new ModelAndView();
+		
+		leaveMapper.leaveRefuse(leaveReqDTO);
+		mav.setViewName("redirect:/manage/mngindex");
+		return mav;
+	}
 	/*
 	 * 백승목
 	 * 휴가 신청 내역 삭제
