@@ -36,10 +36,12 @@ public class LeaveController {
 		
 		EmployeeDTO target = (EmployeeDTO) session.getAttribute("employee");
 		
-		System.out.println(employee_id);
+		// 직원의 남은 연차 일수 가져오기
+		LeaveReqDTO leaveReqDTO = leaveMapper.getRemainingLeave(employee_id);
 		
 		mav.addObject("employee_id",employee_id);
 		mav.addObject("employee",target);
+		mav.addObject("leaveReqDTO",leaveReqDTO);
 		mav.setViewName("emp/leaveReq");
 		return mav;
 	}
@@ -154,9 +156,14 @@ public class LeaveController {
 	 */
 	@RequestMapping("/leaveAgree") // 필요한값 seq, 넘어온값 : *
 	public ModelAndView agree(LeaveReqDTO leaveReqDTO) {
-		ModelAndView mav = new ModelAndView();
+		ModelAndView mav = new ModelAndView();	
 		
+		// 승인시 status -> 1
 		leaveMapper.leaveAgree(leaveReqDTO);
+		
+		// 승인시 연차 차감 
+		leaveMapper.leaveAgree2(leaveReqDTO);
+		
 		mav.setViewName("redirect:/manage/mngindex");
 		return mav;
 	}

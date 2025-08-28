@@ -3,6 +3,7 @@ package com.emp.employ.leave;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface LeaveMapper {
@@ -23,4 +24,8 @@ public interface LeaveMapper {
 	void leaveAgree(LeaveReqDTO leaveReqDTO);
 
 	void leaveRefuse(LeaveReqDTO leaveReqDTO);
+
+	LeaveReqDTO getRemainingLeave(String employee_id);
+
+	void leaveAgree2(LeaveReqDTO leaveReqDTO);
 }

@@ -60,6 +60,8 @@
 		  <tr>
 		  	<td>신청일</td>
 		  	<td colspan="3"><input type="date" value="${leaveDetail.reg_date}" readonly/></td>
+		  	<td>남은 연차일수</td>
+		  	<td><input type="number" value="${leaveDetail.remaining_leave}"></td>
 		  </tr>
 		  <tr>
 		  <tr>

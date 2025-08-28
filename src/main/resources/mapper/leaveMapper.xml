@@ -46,6 +46,19 @@
 	ORDER BY seq DESC
 </select>
 
+<select id="getRemainingLeave" resultType="com.emp.employ.leave.LeaveReqDTO">
+	SELECT
+		employee_id,
+		SUM(CASE 
+				WHEN leave_type = 'SAVE' THEN leave_count
+			  WHEN leave_type = 'USE'  THEN -leave_count
+			  ELSE 0
+		END) AS remaining_leave
+	FROM annualleave
+	WHERE employee_id = #{employee_id}
+	GROUP BY employee_id
+</select>
+
 <select id="leaveDetail" resultType="com.emp.employ.leave.LeaveReqDTO">
 	SELECT 
 		e.name,
@@ -88,6 +101,23 @@
 	SET 
 	 status = 1
 	WHERE seq = #{seq}
+</update>
+
+<update id="leaveAgree2">
+ 	UPDATE annualleave
+ 	SET (SELECT
+    SUM(CASE
+        WHEN leave_type = 'SAVE' THEN leave_count
+        WHEN leave_type = 'USE' THEN -leave_count
+        ELSE 0
+    END) AS remaining_leave
+FROM
+    annualleave
+WHERE
+    employee_id = #{employee_id}
+GROUP BY
+    employee_id) AS remaining_leave = 
+ 	WHERE
 </update>
 
 <update id="leaveRefuse">
